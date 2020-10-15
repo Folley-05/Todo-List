@@ -29,7 +29,8 @@ class AddTodo extends Component {
             type: this.select.current.value,
             title: this.input.current.value,
             date: Date.parse(new Date()),
-            complete: false
+            complete: false,
+            key: key
         }
         localStorage.setItem(key, JSON.stringify(todo))
         //console.log(key +" : "+JSON.stringify(todo))
