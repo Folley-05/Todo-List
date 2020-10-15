@@ -28,7 +28,8 @@ class AddTodo extends Component {
         let todo={
             type: this.select.current.value,
             title: this.input.current.value,
-            date: Date.parse(new Date()) 
+            date: Date.parse(new Date()),
+            complete: false
         }
         localStorage.setItem(key, JSON.stringify(todo))
         //console.log(key +" : "+JSON.stringify(todo))
@@ -36,13 +37,14 @@ class AddTodo extends Component {
     // fonction d'ajout d'une GenericTodo
     addGenericTodo=()=>{
         let key='key'+localStorage.length
-        let sub=this.References.map(ref=>ref.current.value)
+        let sub=this.References.map(ref=>{return{title: ref.current.value, complete: false}})
         let todo={
             type: this.select.current.value,
             title: this.input.current.value,
             subTodo: sub,
             nomber: sub.length,
-            date: Date.parse(new Date()) 
+            date: Date.parse(new Date()),
+            complete: false 
         }
         localStorage.setItem(key, JSON.stringify(todo))
     }
@@ -129,7 +131,7 @@ class AddTodo extends Component {
                                 <option value="2">generic todo</option>
                             </select>
                         </div>
-                        <div className="col-sm-1 justify-content-end">
+                        <div className="col-sm-1 justify-content-end add-button">
                             {this.state.selectChange && <button className="btn btn-primary" onClick={this.add}>+</button>}
                         </div>
                         <label style={{color: 'red', display: this.state.required}} htmlFor="type">this input is required</label>

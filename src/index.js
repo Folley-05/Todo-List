@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'react-bootstrap'
+import './App.css';
 import './index.css';
 
 ReactDOM.render(

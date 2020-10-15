@@ -2,3 +2,8 @@ j'ai reussi a coder l'ajout des champs texte de maniere graphique
 maintenant faut que je verifie si j'ai acces a leur differents contenu a travers le tableau de references
 
 tout ceci a pour but d'implementer l'ajout des todo aussi bien simple que generique
+******** objectif accomplie
+
+
+maintenant faut travailler l'affichage des todo dans l'interface
+les genecTodo on des option que les simpleTodo n'ont pas

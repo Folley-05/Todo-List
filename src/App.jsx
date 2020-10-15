@@ -5,9 +5,10 @@ import AddTodo from './components/AddTodo'
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="align-item-center">Todo List</h1>
+    <div className=" container-fluid app">
+      <h1 className="justify-content-center row">Todo List</h1>
       <div style={{marginTop: 50}} className="">
+        <TodoList />
         <AddTodo />
       </div>
       
