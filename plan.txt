@@ -7,3 +7,8 @@ tout ceci a pour but d'implementer l'ajout des todo aussi bien simple que generi
 
 maintenant faut travailler l'affichage des todo dans l'interface
 les genecTodo on des option que les simpleTodo n'ont pas
+******** objectif accomplie
+
+
+
+

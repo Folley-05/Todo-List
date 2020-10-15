@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import SimpleTodo from './SimpleTodo'
 import BigTodo from './BigTodo'
 
-class TodoList extends Component {
+
+class TodoList extends Component { // composant qui permet d'afficher la liste des todos (taches) et bizarrement il ne gere rien d'autre
 
 
 

@@ -37,14 +37,15 @@ class AddTodo extends Component {
     // fonction d'ajout d'une GenericTodo
     addGenericTodo=()=>{
         let key='key'+localStorage.length
-        let sub=this.References.map(ref=>{return{title: ref.current.value, complete: false}})
+        let sub=this.References.map((ref, i)=>{return{id: i ,title: ref.current.value, complete: false, keyParent: key}})
         let todo={
             type: this.select.current.value,
             title: this.input.current.value,
             subTodo: sub,
-            nomber: sub.length,
+            number: sub.length,
             date: Date.parse(new Date()),
-            complete: false 
+            complete: false,
+            key: key 
         }
         localStorage.setItem(key, JSON.stringify(todo))
     }
