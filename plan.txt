@@ -1,4 +1,4 @@
 j'ai reussi a coder l'ajout des champs texte de maniere graphique
 maintenant faut que je verifie si j'ai acces a leur differents contenu a travers le tableau de references
 
-tout ceci a pour but d'implementer l'ajout des todo aussi nien simple que generique
+tout ceci a pour but d'implementer l'ajout des todo aussi bien simple que generique

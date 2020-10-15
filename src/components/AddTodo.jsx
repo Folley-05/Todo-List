@@ -7,7 +7,8 @@ class AddTodo extends Component {
     
         this.state = {
             required: 'none',
-            change: true
+            change: true,
+            selectChange: false
         }
 
         this.handleClick=this.handleClick.bind(this)
@@ -19,6 +20,8 @@ class AddTodo extends Component {
         this.Sub=[<InputSub key={this.References.length} ref={this.References[0]} require={this.state.required} />]
         this.type="block"
     }
+    // fin de la definition du constructeur
+
     addSimpleTodo=()=>{
         let key='key'+localStorage.length
         let todo={
@@ -32,10 +35,14 @@ class AddTodo extends Component {
 
     handleClick=(e)=>{
         e.preventDefault()
+        let i=0
         if(this.input.current.value && this.select.current.value) {
             this.addSimpleTodo()
-            console.log(this.References[0].current.value)
-            console.log("ok")
+            console.log(this.References.length)
+            this.References.forEach(()=>{ 
+                console.log(this.References[i].current.value)
+                i++
+            }) 
         }
         else {
             this.setState({
@@ -45,6 +52,19 @@ class AddTodo extends Component {
         }
         
         return false
+    }
+    handleChange=(e)=>{
+        if (e.target.value==="2") {
+            this.setState({
+                selectChange: true
+            })
+        }
+        else {
+            this.setState({
+                selectChange: false
+            }) 
+        }
+        console.log(this.state)
     }
     add=(e)=>{
         e.preventDefault()
@@ -63,11 +83,11 @@ class AddTodo extends Component {
     }
 
     render() {
-        console.log(this.Sub[this.Sub.length-1])
+        //console.log(this.Sub[this.Sub.length-1])
 
         this.Sub=[]
         for(let i=0; i<this.References.length; i++) {
-            this.Sub.push(<InputSub key={i} ref={this.References[i]} require={this.state.required} />)
+            this.Sub.push(<InputSub key={i} ref={this.References[i]} require={this.state.required} focus={true} />)
         }
         
         return (
@@ -77,14 +97,14 @@ class AddTodo extends Component {
                     <div className="form-group row">
                         <div className="col-10"><label htmlFor="type">selectionner le type de todo</label></div>
                         <div className="col-11">
-                            <select ref={this.select} name="select" id="type" className="form-control" required>
+                            <select ref={this.select} name="select" id="type" className="form-control" onChange={this.handleChange} required>
                                 <option value="">choisir le type de todo</option>
                                 <option value="1">simple todo</option>
                                 <option value="2">generic todo</option>
                             </select>
                         </div>
                         <div className="col-1">
-                            <button className="btn btn-primary" onClick={this.add}>+</button>
+                            {this.state.selectChange && <button className="btn btn-primary" onClick={this.add}>+</button>}
                         </div>
                         <label style={{color: 'red', display: this.state.required}} htmlFor="type">this input is required</label>
                     </div>
@@ -101,9 +121,7 @@ class AddTodo extends Component {
                                 <label style={{color: 'red', display: this.state.required}} htmlFor="type">this input is required</label>
                             </div>
                             
-                            {this.Sub.map(appar=>{
-                                return appar
-                            })}
+                            {this.state.selectChange && this.Sub.map(appar=> appar)}
 
                         </div>
                         
