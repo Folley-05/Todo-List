@@ -22,6 +22,7 @@ class AddTodo extends Component {
     }
     // fin de la definition du constructeur
 
+    // fonction d'ajout d'une simpleTodo
     addSimpleTodo=()=>{
         let key='key'+localStorage.length
         let todo={
@@ -29,27 +30,52 @@ class AddTodo extends Component {
             title: this.input.current.value,
             date: Date.parse(new Date()) 
         }
-        //localStorage.setItem(key, JSON.stringify(todo))
+        localStorage.setItem(key, JSON.stringify(todo))
         //console.log(key +" : "+JSON.stringify(todo))
     }
-
+    // fonction d'ajout d'une GenericTodo
+    addGenericTodo=()=>{
+        let key='key'+localStorage.length
+        let sub=this.References.map(ref=>ref.current.value)
+        let todo={
+            type: this.select.current.value,
+            title: this.input.current.value,
+            subTodo: sub,
+            nomber: sub.length,
+            date: Date.parse(new Date()) 
+        }
+        localStorage.setItem(key, JSON.stringify(todo))
+    }
     handleClick=(e)=>{
         e.preventDefault()
-        let i=0
-        if(this.input.current.value && this.select.current.value) {
-            this.addSimpleTodo()
-            console.log(this.References.length)
-            this.References.forEach(()=>{ 
-                console.log(this.References[i].current.value)
-                i++
-            }) 
+        if(this.state.selectChange) {
+            let empty=false
+            this.References.forEach(ref=>{
+                if(ref.current.value=="")
+                    empty=true
+            })
+            if(!empty && this.input.current.value && this.select.current.value) {
+                this.addGenericTodo()
+            }
+            else {
+                this.setState({
+                    required: 'inline'
+                })
+                console.log('non')
+            }
         }
         else {
-            this.setState({
-                required: 'inline'
-            })
-            console.log('non')
+            if(this.input.current.value && this.select.current.value) {
+                this.addSimpleTodo()
+            }
+            else {
+                this.setState({
+                    required: 'inline'
+                })
+                console.log('non')
+            }
         }
+
         
         return false
     }
@@ -96,14 +122,14 @@ class AddTodo extends Component {
                 <form action="">
                     <div className="form-group row">
                         <div className="col-10"><label htmlFor="type">selectionner le type de todo</label></div>
-                        <div className="col-11">
+                        <div className="col-sm-11">
                             <select ref={this.select} name="select" id="type" className="form-control" onChange={this.handleChange} required>
                                 <option value="">choisir le type de todo</option>
                                 <option value="1">simple todo</option>
                                 <option value="2">generic todo</option>
                             </select>
                         </div>
-                        <div className="col-1">
+                        <div className="col-sm-1 justify-content-end">
                             {this.state.selectChange && <button className="btn btn-primary" onClick={this.add}>+</button>}
                         </div>
                         <label style={{color: 'red', display: this.state.required}} htmlFor="type">this input is required</label>
