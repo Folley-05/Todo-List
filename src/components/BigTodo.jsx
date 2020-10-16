@@ -12,6 +12,8 @@ export class BigTodo extends Component {
         }
         this.todo=this.props.todo
         this.refSub=React.createRef()
+        this.classRef=React.createRef()
+        this.display=false
         //this.key=this.todo.key
     }
     checkAllSubComplete=()=>{ // cette fonction verifie si toutes les sous tache sont complete et renvoi un booleen correspondant
@@ -25,7 +27,7 @@ export class BigTodo extends Component {
         return bol
     }
     setComplete=()=>{ // cette fonction permet de definir l'etat d'une bigTodo 
-        this.todo.complete=!this.todo.complete
+        this.todo.complete=this.checkAllSubComplete()
         localStorage.setItem(this.todo.key, JSON.stringify(this.todo))
         this.setState({change: !this.state.change})
     }
@@ -40,29 +42,41 @@ export class BigTodo extends Component {
         localStorage.setItem(this.todo.key, JSON.stringify(this.todo))
         this.setState({change: !this.state.change})
     }
+    handleDrop=e=>{
+        this.display=!this.display
+        this.setState({change: !this.state.change})
+    }
 
     render() {
+        console.log(this.classRef)
         return (
             <>
                 <li className="list-group-item generic-todo" >
                     <div className="row">
-                        <div className="col-9"> <b> {this.todo.title} </b></div>
-                        <div className="col-1">
-                            <input type="checkbox" checked={this.todo.complete} onChange={this.setComplete}/>
-                        </div>
-                        <div className="col-1">
-                            <input type="checkbox"/>
-                        </div>
+                        <div className="col-9" style={{fontSize: "1.8em"}}> <b> {this.todo.title} </b></div>
+                        <label style={{marginRight: 10}} htmlFor={this.todo.key} className="col-1">
+                            <div style={{marginTop: 10}} className={`${this.todo.complete ? "check" : "uncheck"}`}>
+                                <input style={{display: 'none'}} id={this.todo.key} type="checkbox" checked={this.todo.complete} onChange={this.setComplete}/>
+                            </div>
+                        </label>
+                        <label htmlFor={this.todo.key+"1"} className="col-1">
+                            <div style={{marginTop: 10}} className={this.display ? "down" : "up"}>
+                                <input id={this.todo.key+"1"} style={{display: 'none'}} type="checkbox" onChange={this.handleDrop}/>
+                            </div>
+                        </label>
                     </div>
                     <div className="row">
-                        <div className="col-9"> <i>{this.todo.date}</i></div> 
+                        <div className="col-9" style={{marginTop: -15}}> <i>{this.todo.date}</i></div> 
                     </div>
                     
                 </li>
-                <li className="list-group-item">
-                    <div className="ml-4"> 
-                        <SubTodo complete={this.todo.complete} ref={this.refSub} Sub={this.todo.subTodo} change={this.changeSubComplete} />
+                <li ref={this.classRef} className="list-group-item contain">
+                    <div className="subcontain">
+                        {this.display&&<div className="ml-4 port"> 
+                            <SubTodo complete={this.todo.complete} ref={this.refSub} Sub={this.todo.subTodo} change={this.changeSubComplete} />
+                        </div>}
                     </div>
+                    
                 </li>
                 
             </>
