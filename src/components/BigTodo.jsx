@@ -23,7 +23,6 @@ export class BigTodo extends Component {
             if(!sub[i].complete)
                 bol=false
         }
-        if(bol) console.log("tout est complet")
         return bol
     }
     setComplete=()=>{ // cette fonction permet de definir l'etat d'une bigTodo 
@@ -37,7 +36,7 @@ export class BigTodo extends Component {
         this.todo.subTodo[id].complete=!this.todo.subTodo[id].complete
         // ici on verifie si toutes les sous subTodo sont complete et on met a jour la bigTodo
         this.todo.complete=this.checkAllSubComplete() //ici on verifie si toute les subTodo sont complete, si c'est le cas alor on complete la generique
-        console.log(this.todo)
+        
         //console.log("etat de la sub todo change avec success")
         localStorage.setItem(this.todo.key, JSON.stringify(this.todo))
         this.setState({change: !this.state.change})
@@ -48,7 +47,6 @@ export class BigTodo extends Component {
     }
 
     render() {
-        console.log(this.classRef)
         return (
             <>
                 <li className="list-group-item generic-todo" >

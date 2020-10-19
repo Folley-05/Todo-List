@@ -29,4 +29,4 @@ class SimpleTodo extends Component {
     }
 }
 
-export default SimpleTodo
+export default React.memo(SimpleTodo)

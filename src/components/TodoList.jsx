@@ -12,11 +12,8 @@ class TodoList extends Component { // composant qui permet d'afficher la liste d
         for(let i=-1; i<localStorage.length; i++) {
             let b="key"+i
             if(localStorage.key(i)!=null) {
-                console.log("exist")
                 a.push(JSON.parse(localStorage.getItem(b)))  
             }
-            else
-            console.log("exist pas")
         }
         return a
             
@@ -30,6 +27,7 @@ class TodoList extends Component { // composant qui permet d'afficher la liste d
             else
             return <BigTodo key={i} todo={todo} />
         })
+        
         return (
             <div className="mb-5">
                 <ul className="list-group" >
