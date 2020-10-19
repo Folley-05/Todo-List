@@ -14,21 +14,28 @@ export class BigTodo extends Component {
         this.refSub=React.createRef()
         this.classRef=React.createRef()
         this.display=false
+        this.percent=null
         //this.key=this.todo.key
     }
     checkAllSubComplete=()=>{ // cette fonction verifie si toutes les sous tache sont complete et renvoi un booleen correspondant
         let bol=true
         let sub=this.todo.subTodo
+        let nb=0
         for(let i=0; i<sub.length; i++) {
-            if(!sub[i].complete)
+            if(!sub[i].complete) {
                 bol=false
+            }
+            else
+                nb+=1
         }
-        return bol
+        let percent=Math.round(nb*100/sub.length)
+        return [bol, percent]
     }
     setComplete=()=>{ // cette fonction permet de definir l'etat d'une bigTodo 
-        this.todo.complete=this.checkAllSubComplete()
+        const [bol, percent]=this.checkAllSubComplete()
+        this.percent=percent
+        this.todo.complete=bol
         localStorage.setItem(this.todo.key, JSON.stringify(this.todo))
-        this.setState({change: !this.state.change})
     }
     
     changeSubComplete=e=>{  //cette fonction est appele a chaque fois que le complete d'une subTodo change
@@ -39,6 +46,7 @@ export class BigTodo extends Component {
         
         //console.log("etat de la sub todo change avec success")
         localStorage.setItem(this.todo.key, JSON.stringify(this.todo))
+        this.setComplete()
         this.setState({change: !this.state.change})
     }
     handleDrop=e=>{
@@ -47,11 +55,12 @@ export class BigTodo extends Component {
     }
 
     render() {
+        this.setComplete()
         return (
             <>
                 <li className="list-group-item generic-todo" >
                     <div className="row">
-                        <div className="col-9" style={{fontSize: "1.8em"}}> <b> {this.todo.title} </b></div>
+                        <div className="col-9" style={{fontSize: "1.8em"}}> <b> {this.todo.title} </b> &emsp; <span style={{color: 'green'}}>{this.percent}%</span> </div>
                         <label style={{marginRight: 10}} htmlFor={this.todo.key} className="col-1">
                             <div style={{marginTop: 10}} className={`${this.todo.complete ? "check" : "uncheck"}`}>
                                 <input style={{display: 'none'}} id={this.todo.key} type="checkbox" checked={this.todo.complete} onChange={this.setComplete}/>
