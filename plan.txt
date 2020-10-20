@@ -9,6 +9,8 @@ maintenant faut travailler l'affichage des todo dans l'interface
 les genecTodo on des option que les simpleTodo n'ont pas
 ******** objectif accomplie
 
+******* faut refaire completement l'interface utilisateur
+
 
 
 
